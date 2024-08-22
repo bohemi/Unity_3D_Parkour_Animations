@@ -12,10 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5953edc27673a2409c075fded3a2339, type: 3}
   m_Name: ForwardJumpAnim
   m_EditorClassIdentifier: 
-  _enableTargetMatching: 1
-  _beginningTime: 0
-  _aboutToPlaceBodyPartTime: 0
+  _enableTargetMatching: 0
+  _shouldPlayerRotate: 0
+  _startTime: 0.35
+  _endTime: 0.68
   _bodyPartToTarget: 0
+  _matchAxes: {x: 0, y: 1, z: 0}
+  _offset: 0
   _animatioName: ForwardJumpAnim
   _minHeight: 0
   _maxHeight: 0
+  _isItVaultAnim: 0
+  _isItForwardJumpAnim: 1

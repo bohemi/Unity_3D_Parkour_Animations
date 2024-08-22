@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2d068c915004cbc4692ab7b060568070
+guid: 75000379b5080d444ae941f14e1ab5f4
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -33,21 +33,21 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Vaulting
+      name: HangMovement
       takeName: mixamo.com
       internalID: -203655887218126122
-      firstFrame: 8
+      firstFrame: 0
       lastFrame: 35
       wrapMode: 0
-      orientationOffsetY: -25.9
-      level: 0
+      orientationOffsetY: -3.41
+      level: 0.45
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
-      loopBlendPositionY: 0
+      loopBlendPositionY: 1
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
       keepOriginalPositionY: 1

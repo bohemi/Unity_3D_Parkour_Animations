@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GridBrushBase;
 
 [CreateAssetMenu(menuName = "My Parkours/Root Action Settings")]
 public class RootAnimationSettings : ScriptableObject
@@ -25,9 +24,18 @@ public class RootAnimationSettings : ScriptableObject
     [SerializeField] float _minHeight;
     [SerializeField] float _maxHeight;
     [SerializeField] bool _isItVaultAnim = false;
+    [SerializeField] bool _isItForwardJumpAnim = false;
+
+    // Action IDs
+    readonly int _idForwardJump = Animator.StringToHash("ForwardJumpAnim");
+    readonly int _idStepUp = Animator.StringToHash("StepUp");
+    readonly int _idVaulting = Animator.StringToHash("Vaulting");
 
     public bool CanPerformRootAction(RaycastHit downRayData, RaycastHit forwardRayData)
     {
+        if (forwardRayData.collider == null && _isItForwardJumpAnim)
+            return true;
+
         if (forwardRayData.collider == null)
             return false;
 
@@ -50,6 +58,11 @@ public class RootAnimationSettings : ScriptableObject
     public string AnimationName => _animatioName;
     public bool ShouldPlayerRotate => _shouldPlayerRotate;
     public Quaternion RotationDirection => _rotationDirection;
+
+    // ID
+    public int IDForwardJump => _idForwardJump;
+    public int IDStepUp => _idStepUp;
+    public int IDVaulting => _idVaulting;
 
     // Target Matching Proprities
     public bool EnableMatching => _enableTargetMatching;

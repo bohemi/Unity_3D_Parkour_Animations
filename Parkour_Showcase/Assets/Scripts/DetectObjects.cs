@@ -3,19 +3,61 @@ using UnityEngine;
 public class DetectObjects : MonoBehaviour
 {
     [Header("Object Detection Ray")]
-    [SerializeField] float _forwardRayPos;
-    [SerializeField] float _forwardRayLength;
-    [SerializeField] float _downRayLength;
+    [SerializeField] float _braceEnableTime;
+    [SerializeField] float _forwardRayPos = 0.45f;
+    [SerializeField] float _forwardRayLength = 0.65f;
+    [SerializeField] float _downRayLength = 1.0f;
     [SerializeField] LayerMask _objectLayerMask;
 
+    [Header("Brace Detection Ray")]
+    [SerializeField] float _braceRayPos = 1.85f;
+    [SerializeField] float _braceRayLength = 0.36f;
+    [SerializeField] float _braceRayDownLength = 1.1f;
+    [SerializeField] LayerMask _braceLayerMask;
+
     bool _isForwardRayHit = false;
-    bool _isDownRayHit = false;
+    bool _isBraceRayHit = false;
     RaycastHit _forwardRayData;
     RaycastHit _downRayData;
+    RaycastHit _braceRayData;
+    RaycastHit _braceRayDownData;
 
     private void FixedUpdate()
     {
         ConstructRay();
+        ConstructBraceRay();
+    }
+    
+    void ConstructBraceRay()
+    {
+        // Debug
+        Debug.DrawRay(new Vector3(transform.position.x, transform.position.y + _braceRayPos, transform.position.z),
+        transform.forward * _braceRayLength, Color.red);
+
+        _isBraceRayHit = Physics.Raycast(new Vector3(transform.position.x, transform.position.y + _braceRayPos, transform.position.z),
+            transform.forward, out _braceRayData, _braceRayLength, _braceLayerMask);
+
+        if (_isBraceRayHit)
+        {
+            Physics.Raycast(_braceRayData.point + Vector3.up, Vector3.down,
+                out _braceRayDownData, _braceRayDownLength, _braceLayerMask);
+
+            Debug.DrawRay(new Vector3(transform.position.x, transform.position.y + _braceRayPos, transform.position.z),
+        transform.forward * _braceRayLength, Color.blue);
+
+            Debug.DrawRay(_braceRayData.point + Vector3.up, Vector3.down * _braceRayDownLength, Color.blue);
+        }
+    }
+
+    public void TurnOffBraceRay()
+    {
+        _braceRayLength = 0.0f;
+        Invoke(nameof(EnableBraceRay), _braceEnableTime);
+    }
+
+    void EnableBraceRay()
+    {
+        _braceRayLength = 0.36f;
     }
 
     void ConstructRay()
@@ -28,7 +70,7 @@ public class DetectObjects : MonoBehaviour
 
         if (_isForwardRayHit)
         {
-            _isDownRayHit = Physics.Raycast(_forwardRayData.point + Vector3.up, Vector3.down,
+            Physics.Raycast(_forwardRayData.point + Vector3.up, Vector3.down,
                 out _downRayData, _downRayLength, _objectLayerMask);
 
             // this ray will give the point position at the top of the obstacles for our foot/hand Target matching
@@ -37,7 +79,8 @@ public class DetectObjects : MonoBehaviour
     }
 
     // Properties
-    public bool HasDownRayHit => _isDownRayHit;
     public RaycastHit DownRayData => _downRayData;
     public RaycastHit ForwardRayData => _forwardRayData;
+    public RaycastHit BraceRayData => _braceRayData;
+    public RaycastHit BraceRayDownData => _braceRayDownData;
 }

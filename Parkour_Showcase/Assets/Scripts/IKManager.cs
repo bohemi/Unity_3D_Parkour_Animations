@@ -15,7 +15,7 @@ public class IKManager : MonoBehaviour
     private void Start()
     {
         _anim = GetComponent<Animator>();
-        _animController = GetComponent<AnimationController>();
+        _animController = GetComponentInParent<AnimationController>();
     }
 
     private void OnAnimatorIK()

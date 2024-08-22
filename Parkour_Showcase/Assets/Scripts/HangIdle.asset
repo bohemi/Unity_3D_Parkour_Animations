@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95c7342e80ac75443825530f97287f8d, type: 3}
+  m_Name: HangIdle
+  m_EditorClassIdentifier: 
+  _animatioName: HangIdle
+  _shouldPlayerRotate: 1
+  _shouldTargetMatch: 1
+  _startTime: 0.1
+  _endTime: 0.3
+  _offsetY: -0.55
+  _offsetX: 0.19
+  _bodyPartToTarget: 5
+  _matchAxes: {x: 0, y: 1, z: 1}

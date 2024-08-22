@@ -29,10 +29,13 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         _rigidbBody = GetComponent<Rigidbody>();
+        _capsuleCollider = GetComponent<CapsuleCollider>();
+        _capsuleCollider.enabled = true;
     }
 
     private void Update()
     {
+        IsGrounded();
         if (!controller)
             return;
 
@@ -95,13 +98,13 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void ShouldPlayerMove(bool controller)
+    public void ShouldPlayerMove(bool controller, bool shouldColliderTrigger)
     {
         this.controller = controller;
         if (!controller)
         {
             _inputValues = Vector3.zero;
-            _capsuleCollider.isTrigger = true;
+            _capsuleCollider.isTrigger = shouldColliderTrigger;
             _rigidbBody.useGravity = false;
         }
         if (controller)
